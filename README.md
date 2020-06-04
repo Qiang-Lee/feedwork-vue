@@ -1,24 +1,26 @@
-# hello-world
+# 海云前端
+## 安装Git,并克隆项目至本地
+ 
+ [Git官网下载对应版本](https://git-scm.com/download/)
 
-## Project setup
+## Node Js 安装
+
+[Node官网下载对应版本](https://nodejs.org/en/download/)
 ```
-npm install
+安装完成后请自行检查 node -v 检查版本信息
+```
+### 前端代码编辑器建议使用 VSCode
+
+[VSCode官网下载对应版本](https://code.visualstudio.com/download/)
+
+### 安装Vue-cli脚手架
+
+```
+全局安装方式 : npm install -g @vue/cli
 ```
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
+### 项目实战篇
 
-### Compiles and minifies for production
-```
-npm run build
-```
-
-### Run your tests
-```
-npm run test
-```
 
 ### Lints and fixes files
 ```
