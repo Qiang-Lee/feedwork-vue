@@ -5,26 +5,29 @@
 
 ## Node Js 安装
 
-[Node官网下载对应版本](https://nodejs.org/en/download/)
+[Node官网下载对应版本](https://nodejs.org/en/download/), 完成后请自行检查npm指令
 ```
-安装完成后请自行检查 node -v 检查版本信息
+安装完成后请自行检查 npm -v 检查版本信息
 ```
 ## 前端代码编辑器建议使用 VSCode
 
 [VSCode官网下载对应版本](https://code.visualstudio.com/download/)
 
-### 插件安装
-
+## 插件安装
+### 打开VSCode,并进行如下安装操作
 ```
  VSCode代码格式化建议使用 vue-format
 ```
 ![image](https://github.com/hyrenserv/vcol/blob/master/image/vue-format.jpg)
-## 安装Vue-cli脚手架
-
+### 安装Vue-cli脚手架
+ - vue-cli主要用于创建用户界面
 ```
 全局安装方式 : npm install -g @vue/cli, 如果安装过慢可使用淘宝镜像 cnpm install -g @vue/cli
 ```
-
+ - 前端UI框架使用 element-ui
+ ```
+  安装 npm install element-ui -S
+ ```
 ## 搭建项目
 ### 项目结构
 ![image](https://github.com/hyrenserv/vcol/blob/master/image/project-desc.jpg)
@@ -60,17 +63,22 @@
    - store 存储公共的数据, 如:保存用户登陆信息,清空用户登陆信息等
    - util 存放公共js的地方,如: 验证,代码项的获取及请求后台的js文件
    - App.vue 是我们的主组件，所有页面都是在App.vue下进行切换的。其实你也可以理解为所有的路由也是App.vue的子组件。所以我将router标示为          App.vue的子组件。 
-   - main.js 是我们的入口文件
-     ```
-       主要作用是初始化vue实例并使用需要的插件.此文件中可以引入公共的js或者第三方的js,并提供全局使用
-     ```
-     - 第三方文件的安装方式 npm install [插件] -S 或者 cnpm install [插件] -S, -S 表示直接将插件信息保存至
+   - main.js 是我们的入口文件,主要作用是初始化vue实例并使用需要的插件.此文件中可以引入公共的js或者第三方的js,并提供全局使用
+     - 第三方文件的安装方式 npm install [插件] -S 或者 cnpm install [插件] -S, -S 表示直接将插件信息保存至package.json和package-lock.json文件中
         ![image](https://github.com/hyrenserv/vcol/blob/master/image/install-components.jpg)
+	![image](https://github.com/hyrenserv/vcol/blob/master/image/install-components2.jpg)
      - 在main.js的引用方式如: 
      ```js
        // 引入echarts
        import echarts from 'echarts'
        Vue.prototype.$echarts = echarts   
+     ```
+     - 引入前端UI,请先全局安装element-ui( npm install element-ui -S )
+     ```js
+     	//在main.js引入UI框架
+     	import ElementUI from 'element-ui';
+	// 并注册到Vue的全局中
+	Vue.use(ElementUI);
      ```
      - 在.vue文件中的使用方式如:
      ```js
@@ -141,6 +149,9 @@
        })
      }
    ```
- -  
-### 数据展现
+ -  请求后台(syspara.vue)
+   syspara.vue,内容如下:
+   ![image](https://github.com/hyrenserv/vcol/blob/master/image/requestservice.jpg)
+   
+### 数据展现方式
  -
