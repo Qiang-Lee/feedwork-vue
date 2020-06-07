@@ -7,23 +7,16 @@ import request from '@/utils/request'
 export function getMenu() {
     return request({
         url: '/A/login/getMenu',
-    })
+    });
 }
 export function getDefaultPage() {
     return request({
         url: '/A/login/getDefaultPage',
     })
   }
-/* const Menu = [
-    // { icon: 'el-icon-setting', title: '系统参数', path: '/syspara' },
-    // { icon: 'el-icon-document', title: 'Agent部署', path: '/agentdeploy' },
-    {
-        icon: 'el-icon-document', title: '数据采集', path: '/collectmonitor',
-        // children: [
-        //     { icon: 'el-icon-document', title: '新增任务', path: '/addTask' }]
-    },
-    { icon: 'el-icon-document', title: '数据源管理', path: '/datasourceManagement' },
-    { icon: 'el-icon-document', title: '系统管理', path: '/managementsystem' },
+  /* 
+const Menu = [
+    { icon: 'el-icon-setting', title: '系统参数', path: '/syspara' },
 
 
 

@@ -71,11 +71,26 @@ export default {
         submitForm(formName) {
             this.$refs[formName].validate(valid => {
                 if (valid) {
+                    //这里项目正式使用时,请根据用户登陆验证的方式自行修改到默认页面
                     this.login(this.ruleForm).then(res => {
                         addTaskAllFun.getDefaultPage().then(res => {
-                            this.$router.push(res.data);
+                            this.$router.push("syspara");
                         });
                     });
+
+                    //---------------模拟用户登陆----------------------
+                    // if(this.ruleForm.user_id != '2001') {
+                    //     this.$Msg.customizTitle("账号不存在","error")
+                    // } else 
+                    
+                    // if(this.ruleForm.password != '2001') {
+                    //     this.$Msg.customizTitle("密码错误","error")
+                    // } else {
+
+                    //     //验证成功跳转到指定的页面
+                    //     this.$router.push("/home")
+                    // }
+
                 } else {
                     return false;
                 }

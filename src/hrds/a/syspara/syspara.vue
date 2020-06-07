@@ -28,7 +28,7 @@
         <el-table-column prop="remark" label="系统参数备注" align="left" show-overflow-tooltip></el-table-column>
         <el-table-column label="操作" align="center" width="164">
             <template slot="header" slot-scope="scope">
-                <el-input v-model="search" size="mini" @keyup.enter.native="searchData" placeholder="系统参数名称(Enter)">
+                <el-input v-model="search" size="mini" @keyup.enter.native="searchData" placeholder="系统参数名称">
                 </el-input>
             </template>
             <template slot-scope="scope">
@@ -90,7 +90,7 @@
 </template>
 
 <script>
-import * as functionAll from "@/hrds/a/managementsystem/managementsystem";
+import * as functionAll from "./syspara";
 import * as validator from "@/utils/js/validator";
 import regular from "@/utils/js/regular";
 // 保存当前为第几页
@@ -101,24 +101,14 @@ export default {
             systemParameters: [],
             totalItem: 0,
             search: '',
-            getAllCodeItems: [],
             currentPage: 1,
             pageSize: 10,
-            options: [],
             dialogFormVisibleAdd: false,
             dialogFormVisibleUpdate: false,
             // 添加数据与导入源字段
             formAdd: {
-                para_name: "",
-                para_value: "",
-                para_type: "",
-                remark: ""
             },
             formUpdate: {
-                para_name: "",
-                para_value: "",
-                para_type: "",
-                remark: ""
             },
             formLabelWidth: "150px"
         }

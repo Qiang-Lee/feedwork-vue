@@ -18,10 +18,10 @@
         <el-container>
             <div style="position:fixed" class='leftmean'>
                 <el-container>
-                    <el-aside >
+                    <el-aside>
                         <Scrollbar>
                             <!-- 导航 -->
-                            <el-menu :unique-opened='true'   style="border:0" background-color="#495179" text-color="#fff" active-text-color="rgba(255, 208, 75, 0.8)" router :default-active="$route.path" :collapse-transition="true" :collapse="isCollapse" class="el-menu-vertical-demo">
+                            <el-menu :unique-opened='true' style="border:0" background-color="#495179" text-color="#fff" active-text-color="rgba(255, 208, 75, 0.8)" router :default-active="$route.path" :collapse-transition="true" :collapse="isCollapse" class="el-menu-vertical-demo">
                                 <div v-for="items in menus" :key="items.name">
                                     <template v-if="items.children">
                                         <!--二级菜单循环-->
@@ -66,7 +66,7 @@ import {
 import Scrollbar from '../scrollbar';
 
 import * as addTaskAllFun from './menu'
-import childrenMenus from './childrenMenus'
+// import childrenMenus from './childrenMenus'
 export default {
     components: {
         Scrollbar
@@ -81,6 +81,8 @@ export default {
     mounted() {
         // 这里是菜单默认路径
         // this.$router.push('syspara');
+
+        // ----------------后续自己根据实际情况定义二级路由地址信息--------------
         addTaskAllFun.getMenu().then(res => {
             let data = res.data;
             let arr = []
@@ -91,14 +93,14 @@ export default {
                     'title': data[i].menu_name,
                     'path': data[i].menu_path
                 }
-                if (typeof childrenMenus[user_type] != 'undefined') {
-                    children['children'] = childrenMenus[user_type]
-                }
+                //---------------这里可以定义二级菜单------------------
+                // if (typeof childrenMenus[user_type] != 'undefined') {
+                //     children['children'] = childrenMenus[user_type]
+                // }
                 arr.push(children)
             }
             this.menus = JSON.parse(JSON.stringify(arr));
-            // this.deflink = this.menus[0]?this.menus[0].path:''
-
+            this.deflink = this.menus[0] ? this.menus[0].path : ''
         })
         addTaskAllFun.getDefaultPage().then(res => {
             this.deflink = res.data;
@@ -108,12 +110,12 @@ export default {
     methods: {
         ...mapActions(['resetToken']),
         goback() {
-            this.resetToken();
+            // this.resetToken();
             this.$router.push('/');
         },
-       /*   meanClickFun() {
-             this.isCollapse = !this.isCollapse
-         }, */
+        /*   meanClickFun() {
+              this.isCollapse = !this.isCollapse
+          }, */
 
     }
 }
@@ -127,10 +129,12 @@ export default {
     /* position: fixed; */
     /* left: 0; */
 }
- .leftmean>>>.el-menu-vertical-demo:not(.el-menu--collapse) {
+
+.leftmean>>>.el-menu-vertical-demo:not(.el-menu--collapse) {
     width: 200px;
     min-height: 400px;
-  }
+}
+
 .el-header {
     background-color: #495179;
     text-align: center;

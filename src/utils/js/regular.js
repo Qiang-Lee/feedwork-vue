@@ -1,6 +1,6 @@
 /**
  * @param {String} key 表示为对应的验证规则类型名称
- * @param {String} regex 表示为对应的验证规则
+ * @param {RegExp} regex 表示为对应的验证规则
  * @param {String} error 表示为验证不通过时的错误提示
  * @param {String} title 表示为验证中文名称描述
  */
@@ -20,8 +20,8 @@ const regular = {
     noLengthVaild: { regex: /^[a-zA-Z]\w*$/, error: '编号不合法(以字母开头)', title: '任务编号' },
     ip_verification: { regex: /^$|^((([01]?[0-9]{1,2})|(2[0-4][0-9])|(25[0-5]))[.]){3}(([0-1]?[0-9]{1,2})|(2[0-4][0-9])|(25[0-5]))$/, error: '无效IP地址', title: 'ip地址' },
     port_verification: { regex: /^(1(02[4-9]|0[3-9][0-9]|[1-9][0-9]{2})|[2-9][0-9]{3}|[1-5][0-9]{4}|6[0-4][0-9]{3}|65[0-4][0-9]{2}|655[0-2][0-9]|6553[0-5])$/, error: '端口不合法，正确范围1024-65535', title: 'agent端口' },
-    webContext:{regex:/^[/]{1}[a-zA-Z]+$/,error:'请使用"/"开头,字母结尾',title:'Agent Context路径'},
-    agent_pattern:{regex:/^[/]{1}\w+[/]{1}[*]{1}$/,error:'请使用"/"开头,并以"/*"结尾,不能包含特殊符号',title:'Agent访问路径'},
+    webContext: { regex: /^[/]{1}[a-zA-Z]+$/, error: '请使用"/"开头,字母结尾', title: 'Agent Context路径' },
+    agent_pattern: { regex: /^[/]{1}\w+[/]{1}[*]{1}$/, error: '请使用"/"开头,并以"/*"结尾,不能包含特殊符号', title: 'Agent访问路径' },
 }
 
 
