@@ -552,7 +552,7 @@ const Base64 = {
  - js使用方式
 
 ``` html
-<el-form-item label="Email验证" prop="email" :rules="filter_rules([{required: true,dataType: 'email'}])">
+<el-form-item label="Email验证" prop="email" :rules="filter_rules([{required: true,dataType: 'email'}])"></el-form-item>
 ```
 
    - required 是否必输
@@ -670,7 +670,7 @@ const regular = {
  
 
 ``` html
- <el-form-item label="Email验证" prop="email" :rules="filter_rules([{required: true,dataType: 'email'}])">
+ <el-form-item label="Email验证" prop="email" :rules="filter_rules([{required: true,dataType: 'email'}])"></el-form-item>
 ```
 
 ### validator.js 默认的输入项检验, 这里提供默认的三种方式
