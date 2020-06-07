@@ -707,14 +707,14 @@ const regular = {
 
 ``` html
 <!--验证选择-->
-<el-form-item label="特殊资源" prop="resource" :rules="rule.checked">
+<el-form-item label="特殊资源" prop="resource" :rules="validator.default.checked">
     <el-radio-group v-model="ruleForm.resource">
         <el-radio label="线上品牌商赞助"></el-radio>
         <el-radio label="线下场地免费"></el-radio>
     </el-radio-group>
 </el-form-item>
 <!--验证必须输入项-->
-<el-form-item label="活动形式" prop="desc" :rules="rule.default">
+<el-form-item label="活动形式" prop="desc" :rules="validator.default.default">
     <el-input type="textarea" v-model="ruleForm.desc"></el-input>
 </el-form-item>
 ```
