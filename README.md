@@ -720,7 +720,8 @@ const regular = {
 ## 模块说明
 
  - 登陆模块
- ![image](https://github.com/hyrenserv/vcol/blob/master/image/login.jpg
+
+  ![image](https://github.com/hyrenserv/vcol/blob/master/image/login.jpg)
 
     
 
