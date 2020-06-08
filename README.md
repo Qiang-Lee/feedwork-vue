@@ -721,7 +721,9 @@ const regular = {
 
  - 登陆模块
 
-  ![image](https://github.com/hyrenserv/vcol/blob/master/image/login.jpg)
+  
+
+![image](https://github.com/hyrenserv/vcol/blob/master/image/login.jpg)
 
     
 
@@ -745,22 +747,26 @@ const regular = {
  import {
      mapActions
  } from "vuex"
- ...mapActions(["login"]), //引入公共登陆方法
-     submitForm(formName) {
-         this.$refs[formName].validate(valid => {
-             if (valid) {
-                 //这里项目正式使用时,请根据用户登陆验证的方式自行修改到默认页面
-                 this.login(this.ruleForm).then(res => { //开始登陆认证
-                     addTaskAllFun.getDefaultPage().then(res => {
-                         //登陆成功后跳转的页面,这里只是个列子
-                         this.$router.push("syspara");
+ export default {
+     methods: {
+         ...mapActions(["login"]), //引入公共登陆方法
+         submitForm(formName) {
+             this.$refs[formName].validate(valid => {
+                 if (valid) {
+                     //这里项目正式使用时,请根据用户登陆验证的方式自行修改到默认页面
+                     this.login(this.ruleForm).then(res => { //开始登陆认证
+                         addTaskAllFun.getDefaultPage().then(res => {
+                             //登陆成功后跳转的页面,这里只是个列子
+                             this.$router.push("syspara");
+                         });
                      });
-                 });
-             } else {
-                 return false;
-             }
-         });
-     },
+                 } else {
+                     return false;
+                 }
+             });
+         },
+     }
+ }
 ```
 
  - 树模块
@@ -821,7 +827,7 @@ const regular = {
    根目录下执行 npm install ,此时会在根目录下出现node_modules目录...这个目录下就是依赖所需要的文件
 ```
 
-![image](https://github.com/hyrenserv/vcol/blob/master/image/install.PNG)
+![image](https://github.com/hyrenserv/vcol/blob/master/image/install. PNG)
 
  - 启动程序
  
@@ -830,7 +836,7 @@ const regular = {
  根目录下执行 npm run serve
  ```
 
-![image](https://github.com/hyrenserv/vcol/blob/master/image/running.PNG)
+![image](https://github.com/hyrenserv/vcol/blob/master/image/running. PNG)
 
 ## 项目打包
 
@@ -838,4 +844,4 @@ const regular = {
 根目录下执行 npm run build,此时会在根目录下出现dist目录...这个目录下的文件直接放入对应的web服务即可
 ```
 
-![image](https://github.com/hyrenserv/vcol/blob/master/image/build.PNG)
+![image](https://github.com/hyrenserv/vcol/blob/master/image/build. PNG)
