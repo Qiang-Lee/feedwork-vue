@@ -74,7 +74,6 @@ export default {
         },
         //树点击触发
         handleNodeClick(data) {
-            console.log(this.blongs,data) //给下面接口传的参数，属于哪一个也没树
             if (data.file_id !== '') {
                 // 查询数据
                 this.dataByTableName = [];
@@ -95,7 +94,6 @@ export default {
                 var menu = document.querySelector('#menu');
                 document.addEventListener('click', this.foo);
                 menu.style.display = "block";
-                console.log(MouseEvent)
                 menu.style.left = MouseEvent.clientX-160+ 'px';
                 menu.style.top = MouseEvent.clientY-100+ 'px';
             } else {

@@ -58,8 +58,6 @@
 
      - 路由配置说明(index.js)
 
- 
-
 ``` js
      import Vue from 'vue'
      import Router from 'vue-router'
@@ -719,6 +717,99 @@ const regular = {
 </el-form-item>
 ```
 
+## 模块说明
+
+ - 登陆模块
+ ![image](https://github.com/hyrenserv/vcol/blob/master/image/login.jpg
+
+    
+
+``` html
+        <el-form :model="ruleForm" status-icon :rules="rules" ref="ruleForm" class="demo-ruleForm" label-width="80px">
+            <el-form-item label="登录名" prop="user_id">
+                <el-input v-model="ruleForm.user_id"></el-input>
+            </el-form-item>
+            <el-form-item label="密码" prop="password">
+                <el-input type="password" v-model="ruleForm.password" autocomplete="off" show-password></el-input>
+            </el-form-item>
+            <el-form-item>
+                <el-button type="primary" @click="submitForm('ruleForm')">登录</el-button>
+                <el-button @click="resetForm('ruleForm')">重置</el-button>
+            </el-form-item>
+        </el-form>
+```
+
+``` js
+ //引入组件
+ import {
+     mapActions
+ } from "vuex"
+ ...mapActions(["login"]), //引入公共登陆方法
+     submitForm(formName) {
+         this.$refs[formName].validate(valid => {
+             if (valid) {
+                 //这里项目正式使用时,请根据用户登陆验证的方式自行修改到默认页面
+                 this.login(this.ruleForm).then(res => { //开始登陆认证
+                     addTaskAllFun.getDefaultPage().then(res => {
+                         //登陆成功后跳转的页面,这里只是个列子
+                         this.$router.push("syspara");
+                     });
+                 });
+             } else {
+                 return false;
+             }
+         });
+     },
+```
+
+ - 树模块
+ 
+
+``` js
+ //vue文件中直接引用,并放入组件中...注意这里没有直接引入到index..因为默认会找当前目录下的index.vue,如果是其他名称这需要填写到文件名称
+ import Tree from "../../components/tree";
+
+ export default {
+     components: {
+         Tree
+     }
+ }
+```
+
+ 
+
+``` html
+    <Tree />
+```
+
+ - 请求加载模块
+  
+
+``` js
+    import Loading from "../../components/loading";
+
+    export default {
+        components: {
+            Loading
+        },
+        data() {
+            return {
+                isLoading: false //当值为 true是,出现加载效果
+            }
+        }
+    }
+```
+
+``` html
+    <loading v-if="isLoading" />
+```
+
+ - 模块使用说明
+
+    [海云模块使用请阅读](https://github.com/hyrenserv/vcol)
+
+  
+
 ## 项目运行
 
  
@@ -729,7 +820,7 @@ const regular = {
    根目录下执行 npm install ,此时会在根目录下出现node_modules目录...这个目录下就是依赖所需要的文件
 ```
 
-![image](https://github.com/hyrenserv/vcol/blob/master/image/install.PNG)
+![image](https://github.com/hyrenserv/vcol/blob/master/image/install. PNG)
 
  - 启动程序
  
@@ -738,7 +829,7 @@ const regular = {
  根目录下执行 npm run serve
  ```
 
-![image](https://github.com/hyrenserv/vcol/blob/master/image/running.PNG)
+![image](https://github.com/hyrenserv/vcol/blob/master/image/running. PNG)
 
 ## 项目打包
 
@@ -746,4 +837,4 @@ const regular = {
 根目录下执行 npm run build,此时会在根目录下出现dist目录...这个目录下的文件直接放入对应的web服务即可
 ```
 
-![image](https://github.com/hyrenserv/vcol/blob/master/image/build.PNG)
+![image](https://github.com/hyrenserv/vcol/blob/master/image/build. PNG)
