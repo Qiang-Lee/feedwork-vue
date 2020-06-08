@@ -804,7 +804,7 @@ const regular = {
     <loading v-if="isLoading" />
 ```
 
- - 模块使用说明
+ - 其他模块使用请参照以下链接
 
     [海云模块使用请阅读](https://github.com/hyrenserv/vcol)
 
