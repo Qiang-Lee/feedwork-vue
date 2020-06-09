@@ -117,7 +117,7 @@ export default {
         this.getSysPara("1");
     },
     methods: {
-        // 获取部门列表信息
+        // 获取系统参数列表信息
         getSysPara(e) {
             functionAll.getSysPara({
                 currPage: e,
@@ -129,7 +129,7 @@ export default {
                 }
             })
         },
-        // 添加新的部门信息
+        // 添加新的系统参数信息
         addSysPara(formName) {
             this.$refs[formName].validate(valid => {
                 if (valid) {
@@ -173,7 +173,7 @@ export default {
             this.formUpdate = Object.assign({}, row);
             this.para_name = row.para_name;
         },
-        //编辑部门信息
+        //编辑参数信息
         updateSysPara(formName) {
             this.$refs[formName].validate(valid => {
                 if (valid) {

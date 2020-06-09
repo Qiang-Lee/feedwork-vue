@@ -22,14 +22,15 @@ Router.prototype.push = function push(location) {
  */
 export default new Router({
     routes: [
-        {path: '/', name: 'login', component: () => import('@/hrds/login/login.vue')},
-        //菜单路由地址配置
+        { path: '/', name: 'login', component: () => import('@/hrds/login/login.vue') },
         {
+            //菜单路由地址配置
             path: "/home", name: 'home', component: () => import('@/hrds/components/menu'), children: [
-                {path: '/syspara', name: 'syspara', component: () => import('@/hrds/a/syspara/syspara.vue')},
+                { path: '/systemParameters', name: 'systemParameters', component: () => import('@/hrds/a/syspara/syspara.vue') },
             ]
         },
+
         //其他访问连接直接跳转到无效页面
-        {path: '*', name: '*', component: () => import('@/hrds/components/notFound.vue')},
+        { path: '*', name: '*', component: () => import('@/hrds/components/notFound.vue') },
     ]
 })
