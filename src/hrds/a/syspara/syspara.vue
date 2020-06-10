@@ -16,7 +16,7 @@
         </el-input>
     </el-col> -->
 
-    <el-table stripe :data="systemParameters" size="medium" border>
+    <el-table height="550" stripe :data="systemParameters" border>
         <el-table-column type="index" label="序号" width="62" align="center">
             <template slot-scope="scope">
                 <span>{{scope.$index+(currentPage - 1) * pageSize + 1}}</span>
@@ -90,9 +90,8 @@
 </template>
 
 <script>
-import * as functionAll from "./syspara";
-import * as validator from "@/utils/js/validator";
-import regular from "@/utils/js/regular";
+import * as functionAll from "./syspara"
+import * as validator from "@/utils/js/validator"
 // 保存当前为第几页
 let savecurrentPage;
 export default {
@@ -124,7 +123,7 @@ export default {
                 pageSize: this.pageSize
             }).then((res) => {
                 if (res && res.success) {
-                    this.systemParameters = res.data.sysParas;
+                    this.systemParameters = res.data;
                     this.totalItem = res.data.totalSize;
                 }
             })

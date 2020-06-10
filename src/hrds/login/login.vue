@@ -1,10 +1,10 @@
 <template>
 <div class="login">
-    <el-form :model="ruleForm" status-icon :rules="rules" ref="ruleForm" class="demo-ruleForm" label-width="80px">
-        <el-form-item label="登录名" prop="user_id">
+    <el-form :model="ruleForm" status-icon :rules="rule" ref="ruleForm" class="demo-ruleForm" label-width="80px">
+        <el-form-item label="登录名" prop="user_id" :rules="rule.default">
             <el-input v-model="ruleForm.user_id"></el-input>
         </el-form-item>
-        <el-form-item label="密码" prop="password">
+        <el-form-item label="密码" prop="password" :rules="rule.default">
             <el-input type="password" v-model="ruleForm.password" autocomplete="off" show-password></el-input>
         </el-form-item>
         <el-form-item>
@@ -20,6 +20,7 @@ import {
     mapActions
 } from "vuex";
 import * as addTaskAllFun from "./login";
+import * as validator from "@/utils/js/validator"
 export default {
     name: "Login",
     mounted() {
@@ -31,38 +32,13 @@ export default {
         this.enterKeyupDestroyed();
     },
     data() {
-        var validateLoginName = (rule, value, callback) => {
-            if (value === "") {
-                callback(new Error("请输入用户名"));
-            } else {
-                callback();
-            }
-        };
-        var validatePassword = (rule, value, callback) => {
-            if (value === "") {
-                callback(new Error("请输入密码"));
-            } else {
-                callback();
-            }
-        };
         return {
             link: "",
             ruleForm: {
                 user_id: "",
                 password: ""
             },
-            rules: {
-                user_id: [{
-                    required: true,
-                    validator: validateLoginName,
-                    trigger: "blur"
-                }],
-                password: [{
-                    required: true,
-                    validator: validatePassword,
-                    trigger: "blur"
-                }]
-            },
+            rule: validator.default,
             formLabelWidth: "60px"
         };
     },
@@ -74,23 +50,9 @@ export default {
                     //这里项目正式使用时,请根据用户登陆验证的方式自行修改到默认页面
                     this.login(this.ruleForm).then(res => {
                         addTaskAllFun.getDefaultPage().then(res => {
-                            this.$router.push("home");
+                            this.$router.push(res.data);
                         });
                     });
-
-                    //---------------模拟用户登陆----------------------
-                    // if(this.ruleForm.user_id != '2001') {
-                    //     this.$Msg.customizTitle("账号不存在","error")
-                    // } else 
-                    
-                    // if(this.ruleForm.password != '2001') {
-                    //     this.$Msg.customizTitle("密码错误","error")
-                    // } else {
-
-                    //     //验证成功跳转到指定的页面
-                    //     this.$router.push("/home")
-                    // }
-
                 } else {
                     return false;
                 }
@@ -117,7 +79,7 @@ export default {
             document.addEventListener("keyup", this.enterKey);
         }
     }
-};
+}
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->

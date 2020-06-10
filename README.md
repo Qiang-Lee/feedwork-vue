@@ -1,50 +1,169 @@
-# 海云前端
+# 一、搭建新项目的步骤
+## 1.1. 准备环境
+- 安装 Git/Node/VSCode
+  * [Git下载地址](https://git-scm.com/download/)
+  * [VSCode下载](https://code.visualstudio.com/download/)
+  * -- 必须安装代码格式化插件 : vue-format
+  * [Node下载地址](https://nodejs.org/en/download/)
 
-## 安装Git, 并克隆项目至本地
+- 全局安装Vue-cli脚手架 (版本号2.9.6)
 
- 
- [Git官网下载对应版本](https://git-scm.com/download/)
-
-## Node Js 安装
-
-[Node官网下载对应版本](https://nodejs.org/en/download/), 完成后请自行检查npm指令
-
-``` 
-安装完成后请自行检查 npm -v 检查版本信息
+```shell
+npm install -g vue-cli@2.9.6
+# 如果安装过慢可使用淘宝镜像
+npm install -g cnpm --registry=https://registry.npm.taobao.org
+# 然后在使用
+cnpm install -g vue-cli@2.9.6
 ```
 
-## 前端代码编辑器建议使用 VSCode
+- 安装依赖的UI框架
 
-[VSCode官网下载对应版本](https://code.visualstudio.com/download/)
-
-## 插件安装
-
-### 打开VSCode, 并进行如下安装操作
-
-``` 
- VSCode代码格式化建议使用 vue-format
+```shell
+# 需要在项目根目录下执行本命令
+npm install element-ui -S
 ```
 
-![image](https://github.com/hyrenserv/vcol/blob/master/image/vue-format.jpg)
+## 1.2. 拉取项目基础框架
 
-### 安装Vue-cli脚手架(目前目前项目固定版本为 2.9.6)
-
- - vue-cli主要用于创建用户界面
-
-``` 
-全局安装方式 : npm install -g vue-cli@2.9.6, 如果安装过慢可使用淘宝镜像 npm install -g cnpm --registry=https://registry.npm.taobao.org,然后在使用cnpm install -g vue-cli@2.9.6
+```shell
+git clone https://github.com/hyrenserv/feedwork-vue.git
 ```
 
- - 前端UI框架使用 element-ui
- 
+## 1.3. 编写程序(以登陆功能为例)
 
-``` 
-  安装 npm install element-ui -S
- ```
+- 定义环境变量: .env.development (在项目根目录下)
 
-## 搭建项目
+```ini
+VUE_APP_HRDS_A_API = 'http://172.168.0.100:12345'
+```
 
-### 项目结构
+- 在项目根目录的src/hrds/login 目录下创建js和vue文件, 
+
+  * login.js 编写向后台请求登陆的方法
+
+```js
+    import request from '@/utils/request'
+   /*
+    *  @param data.user_id  登陆的用户名
+    *  @param data.password  登陆的用户密码
+    */
+   export function login(data) {
+       return request({
+           url: '/A/login/login',
+           params: data
+       })
+   }
+```
+
+  * login.vue 编写页面布局及调用请求方法
+
+```html
+<el-form :model="ruleForm" status-icon :rules="rule" ref="ruleForm" class="demo-ruleForm" label-width="80px">
+    <el-form-item label="登录名" prop="user_id" :rules="rule.default">
+        <el-input v-model="ruleForm.user_id"></el-input>
+    </el-form-item>
+    <el-form-item label="密码" prop="password" :rules="rule.default">
+        <el-input type="password" v-model="ruleForm.password" autocomplete="off" show-password></el-input>
+    </el-form-item>
+    <el-form-item>
+        <el-button type="primary" @click="submitForm('ruleForm')">登录</el-button>
+        <el-button @click="resetForm('ruleForm')">重置</el-button>
+    </el-form-item>
+</el-form>
+```
+   * 请求方法调用
+
+```js
+    import {
+        mapActions
+    } from "vuex";
+    import * as addTaskAllFun from "./login"
+    import * as validator from "@/utils/js/validator"
+    export default {
+        name: "Login",
+        mounted() {
+            // 绑定enter事件
+            this.enterKeyup();
+        },
+        destroyed() {
+            // 销毁enter事件
+            this.enterKeyupDestroyed();
+        },
+        data() {
+            return {
+                link: "",
+                ruleForm: {
+                    user_id: "",
+                    password: ""
+                },
+                rule: validator.default,
+                formLabelWidth: "60px"
+            };
+        },
+        methods: {
+            ...mapActions(["login"]),
+            submitForm(formName) {
+                this.$refs[formName].validate(valid => {
+                    if (valid) {
+                        //这里项目正式使用时,请根据用户登陆验证的方式自行修改到默认页面
+                        this.login(this.ruleForm).then(res => {
+                            addTaskAllFun.getDefaultPage().then(res => {
+                                this.$router.push(res.data);
+                            });
+                        });
+                    } else {
+                        return false;
+                    }
+                });
+            },
+            resetForm(formName) { //重置
+                this.$refs[formName].resetFields();
+            },
+            enterKey(event) { //Enter回车请求
+                const componentName = this.$options.name;
+                const code = event.keyCode ?
+                    event.keyCode :
+                    event.which ?
+                    event.which :
+                    event.charCode;
+                if (componentName == "Login" && code === 13) {
+                    this.submitForm("ruleForm");
+                }
+            },
+            enterKeyupDestroyed() { //Enter回车请求销毁
+                document.removeEventListener("keyup", this.enterKey);
+            },
+            enterKeyup() { //Enter回车监听
+                document.addEventListener("keyup", this.enterKey);
+            }
+        }
+    }
+```
+
+## 1.4. 运行程序
+- 安装运行时所需依赖
+
+```shell
+# 在项目根目录下执行
+npm install
+```
+安装成功后,在项目的根目录下会生成node_modules目录, 此目录下存放的是运行时的依赖文件
+
+- 启动Web服务
+
+```shell 
+# 在项目根目录下执行
+npm run serve
+```
+
+- 访问Web
+在浏览器中输入启动时的地址即可访问Web服务
+默认用户: 1000
+默认密码: 1000
+
+# 二、详细使用说明
+
+## 项目结构
 
 ![image](https://github.com/hyrenserv/vcol/blob/master/image/project-desc.jpg)
 
@@ -73,21 +192,34 @@
       *      @param component: () => import('@/hrds/login/index') 后面为路由地址的具体页面
       *      @param children: 路由下的子路由
       *  }
-
       *
       */
      export default new Router({
-                 routes: [{
-                         path: '/',
-                         name: 'login',
-                         component: () => import('@/hrds/login/login.vue'),
-                         children: [{
-                                 path: '/syspara',
-                                 name: 'syspara',
-                                 component: () => import('@/hrds/a/syspara/index.vue')
-                             }
-                         }]
-                 })
+         routes: [{
+                 path: '/',
+                 name: 'login',
+                 component: () => import('@/hrds/login/login.vue')
+             },
+             {
+                 //菜单路由地址配置
+                 path: "/home",
+                 name: 'home',
+                 component: () => import('@/hrds/components/menu'),
+                 children: [{
+                     path: '/systemParameters',
+                     name: 'systemParameters',
+                     component: () => import('@/hrds/a/syspara/syspara.vue')
+                 }, ]
+             },
+
+             //其他访问连接直接跳转到无效页面
+             {
+                 path: '*',
+                 name: '*',
+                 component: () => import('@/hrds/components/notFound.vue')
+             },
+         ]
+     })
 ```
 
    - store 存储公共的数据, 如: 保存用户登陆信息, 清空用户登陆信息等
