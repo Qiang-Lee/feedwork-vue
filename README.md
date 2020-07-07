@@ -26,7 +26,7 @@ npm install element-ui -S
 ## 1.2. 拉取项目基础框架
 
 ```shell
-git clone https://github.com/hyrenserv/feedwork-vue.git
+http://139.9.126.19:38111/FdcoreHyren/feedwork-vue.git
 ```
 
 ## 1.3. 编写程序(以登陆功能为例)
